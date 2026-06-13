@@ -1,0 +1,53 @@
+{
+  "products": [
+    {
+      "name": "Country Sourdough",
+      "unitWeightG": 900,
+      "ingredients": [
+        { "name": "Bread flour", "pct": 90, "isFlour": true, "allergen": "Wheat" },
+        { "name": "Whole wheat flour", "pct": 10, "isFlour": true, "allergen": "Wheat" },
+        { "name": "Water", "pct": 75 },
+        { "name": "Sourdough starter", "pct": 20, "allergen": "Wheat" },
+        { "name": "Sea salt", "pct": 2 }
+      ],
+      "schedule": [
+        { "label": "Feed levain", "offsetMin": 1020 },
+        { "label": "Autolyse (mix flour + water)", "offsetMin": 660 },
+        { "label": "Add levain + salt, start bulk", "offsetMin": 600 },
+        { "label": "Shape & bench rest", "offsetMin": 270 },
+        { "label": "Into the fridge (cold proof)", "offsetMin": 240 },
+        { "label": "Preheat Dutch oven", "offsetMin": 60 },
+        { "label": "Score & load", "offsetMin": 45, "bake": true },
+        { "label": "Out of the oven", "offsetMin": 0, "bake": true }
+      ]
+    },
+    {
+      "name": "Seeded Spelt",
+      "unitWeightG": 800,
+      "ingredients": [
+        { "name": "Spelt flour", "pct": 70, "isFlour": true, "allergen": "Wheat" },
+        { "name": "Bread flour", "pct": 30, "isFlour": true, "allergen": "Wheat" },
+        { "name": "Water", "pct": 78 },
+        { "name": "Sourdough starter", "pct": 20, "allergen": "Wheat" },
+        { "name": "Mixed seeds", "pct": 12, "allergen": "Sesame" },
+        { "name": "Sea salt", "pct": 2 }
+      ],
+      "schedule": [
+        { "label": "Feed levain", "offsetMin": 1020 },
+        { "label": "Toast & soak seeds", "offsetMin": 690 },
+        { "label": "Autolyse (mix flour + water)", "offsetMin": 660 },
+        { "label": "Add levain + salt + seeds, start bulk", "offsetMin": 600 },
+        { "label": "Shape & bench rest", "offsetMin": 255 },
+        { "label": "Into the fridge (cold proof)", "offsetMin": 225 },
+        { "label": "Preheat Dutch oven", "offsetMin": 60 },
+        { "label": "Score & load", "offsetMin": 40, "bake": true },
+        { "label": "Out of the oven", "offsetMin": 0, "bake": true }
+      ]
+    }
+  ],
+  "orders": [
+    { "date": "2026-06-20", "items": [{ "product": "Country Sourdough", "qty": 18 }, { "product": "Seeded Spelt", "qty": 8 }] },
+    { "date": "2026-06-20", "items": [{ "product": "Country Sourdough", "qty": 6 }] },
+    { "date": "2026-06-27", "items": [{ "product": "Seeded Spelt", "qty": 10 }] }
+  ]
+}

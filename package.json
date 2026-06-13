@@ -1,0 +1,46 @@
+{
+  "name": "doughplan",
+  "version": "1.0.0",
+  "description": "The open-source bake-day planning engine for sourdough & micro bakeries: turn a week of orders into a time-reversed bake schedule, scaled baker's-percentage formulas, and one aggregated shopping list. Zero dependencies.",
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "doughplan": "bin/cli.js"
+  },
+  "scripts": {
+    "test": "node --test",
+    "demo": "node bin/cli.js plan examples/bakery.json --date 2026-06-20 --time 08:00"
+  },
+  "keywords": [
+    "sourdough",
+    "bakery",
+    "baking",
+    "bakers-percentage",
+    "production-planning",
+    "bake-schedule",
+    "hydration",
+    "recipe-scaling",
+    "cottage-food",
+    "microbakery"
+  ],
+  "files": [
+    "src",
+    "bin",
+    "examples",
+    "README.md",
+    "LICENSE"
+  ],
+  "homepage": "https://doughplan.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SaschaHeyer/doughplan.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SaschaHeyer/doughplan/issues"
+  },
+  "author": "DoughPlan (https://doughplan.com)",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
