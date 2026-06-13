@@ -32,8 +32,12 @@ levain* and *how much flour to buy* is fiddly and easy to get wrong on paper.
 ## Install
 
 ```bash
-npm install doughplan        # library
-npx doughplan --help         # or just run the CLI
+# Install straight from GitHub (zero dependencies, Node 18+):
+npm install github:SaschaHeyer/doughplan
+
+# …or clone and run the CLI directly:
+git clone https://github.com/SaschaHeyer/doughplan
+cd doughplan && node bin/cli.js --help
 ```
 
 Requires Node 18+. No dependencies.
