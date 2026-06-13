@@ -12,6 +12,8 @@ engine is open source so you can read it, trust it, and build on it. If you'd
 rather not write JSON, the full visual planner (labels, packing lists,
 multi-bake-day, cloud sync) lives at **[doughplan.com](https://doughplan.com)**.
 
+📖 **Docs & live API reference:** **[saschaheyer.github.io/doughplan](https://saschaheyer.github.io/doughplan/)**
+
 ---
 
 ## Why this exists

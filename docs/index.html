@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>doughplan — open-source bake-schedule &amp; baker's-percentage engine (JavaScript)</title>
+<meta name="description" content="doughplan is a zero-dependency JavaScript/Node library that turns a day of bakery orders into a time-reversed bake schedule, scaled baker's-percentage formulas, and one aggregated shopping list. MIT licensed. The engine behind doughplan.com.">
+<link rel="canonical" href="https://saschaheyer.github.io/doughplan/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="doughplan — open-source bake-schedule & baker's-percentage engine">
+<meta property="og:description" content="Zero-dependency JavaScript library: orders → time-reversed bake schedule, scaled baker's-percentage formulas, aggregated shopping list. MIT.">
+<meta property="og:url" content="https://saschaheyer.github.io/doughplan/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#b5651d">
+<style>
+  :root{
+    --bg:#fbf7f0; --ink:#2c2118; --muted:#6f6051; --crust:#b5651d; --crust-d:#8a4d16;
+    --line:#e7ddcd; --card:#fffdf9; --code-bg:#2b2218; --code-ink:#f3e7d4; --accent:#9a6b3f;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+  a{color:var(--crust-d);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:760px;margin:0 auto;padding:0 22px}
+  header{padding:54px 0 30px;border-bottom:1px solid var(--line)}
+  .badge{display:inline-block;font-size:13px;color:var(--muted);border:1px solid var(--line);background:var(--card);border-radius:999px;padding:4px 12px;margin-bottom:18px}
+  h1{font-size:38px;line-height:1.1;margin:0 0 10px;letter-spacing:-.5px}
+  h1 .em{color:var(--crust)}
+  .lede{font-size:19px;color:var(--muted);margin:0 0 24px}
+  .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+  .btn{display:inline-block;padding:11px 18px;border-radius:9px;font-weight:600;font-size:15px}
+  .btn-primary{background:var(--crust);color:#fff}
+  .btn-primary:hover{background:var(--crust-d);text-decoration:none}
+  .btn-ghost{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+  .btn-ghost:hover{text-decoration:none;border-color:var(--accent)}
+  h2{font-size:25px;margin:46px 0 12px;letter-spacing:-.3px}
+  h3{font-size:18px;margin:30px 0 6px}
+  p{margin:0 0 14px}
+  ul{margin:0 0 16px;padding-left:22px}
+  li{margin:6px 0}
+  code{font-family:"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;font-size:14px;background:#f1e9da;padding:2px 6px;border-radius:5px;color:#5a3d1d}
+  pre{background:var(--code-bg);color:var(--code-ink);padding:18px;border-radius:11px;overflow:auto;font-size:13.5px;line-height:1.55;margin:0 0 18px}
+  pre code{background:none;padding:0;color:inherit;font-size:13.5px}
+  .api{border:1px solid var(--line);background:var(--card);border-radius:11px;padding:16px 18px;margin:0 0 14px}
+  .api h3{margin-top:0;font-family:"SF Mono",monospace;font-size:15.5px;color:var(--crust-d)}
+  .api p{margin:0;color:var(--muted);font-size:15px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:560px){.grid{grid-template-columns:1fr}h1{font-size:31px}}
+  .out{background:var(--code-bg);color:var(--code-ink);border-radius:11px;padding:18px;font-family:"SF Mono",monospace;font-size:12.5px;line-height:1.5;white-space:pre;overflow:auto;margin:0 0 18px}
+  .hosted{background:linear-gradient(180deg,#fff8ee,#fdf1df);border:1px solid #ecd9bd;border-radius:14px;padding:24px;margin:30px 0}
+  .hosted h2{margin-top:0}
+  footer{border-top:1px solid var(--line);margin-top:50px;padding:26px 0 60px;color:var(--muted);font-size:14px}
+  footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <span class="badge">🥖 open source · MIT · zero dependencies · Node 18+</span>
+    <h1><span class="em">doughplan</span> — the bake-day planning engine</h1>
+    <p class="lede">A small, dependency-free JavaScript library that turns a day of bakery orders into the three things a baker actually needs at 4&nbsp;a.m.: a <strong>time-reversed bake schedule</strong>, <strong>scaled baker's-percentage formulas</strong>, and one <strong>aggregated shopping list</strong>.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="https://github.com/SaschaHeyer/doughplan">View on GitHub</a>
+      <a class="btn btn-ghost" href="https://doughplan.com">Try the hosted planner →</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <h2>Why it exists</h2>
+  <p>You don't plan a bake day <em>forward</em> from when you wake up — you plan it <strong>backward</strong> from when the bread has to be out of the oven for market. Three breads, two ovens, twenty-six loaves, one fridge: the math of <em>when to feed the levain</em> and <em>how much flour to buy</em> is fiddly and easy to get wrong on paper. <code>doughplan</code> does it deterministically.</p>
+  <ul>
+    <li><strong>Baker's percentages done right</strong> — flour is always 100%; every formula scales linearly and conserves mass exactly.</li>
+    <li><strong>Time-reversed scheduling</strong> — every step is an offset <em>before</em> out-of-oven, so one formula produces a real wall-clock plan for any target time.</li>
+    <li><strong>Cross-product aggregation</strong> — bake three products on one day and get a single merged schedule and one combined shopping list.</li>
+  </ul>
+
+  <h2>Install</h2>
+  <pre><code># Install straight from GitHub (zero dependencies, Node 18+):
+npm install github:SaschaHeyer/doughplan
+
+# …or clone and run the CLI directly:
+git clone https://github.com/SaschaHeyer/doughplan
+cd doughplan &amp;&amp; node bin/cli.js --help</code></pre>
+
+  <h2>Quick start</h2>
+  <p>One call — <code>buildPlan()</code> — takes your formulas (the "menu") and the day's orders, and returns the full plan:</p>
+  <pre><code>import { buildPlan } from "doughplan";
+
+const plan = buildPlan({
+  products: [{
+    name: "Country Sourdough",
+    unitWeightG: 900,                       // raw dough weight per loaf
+    ingredients: [
+      { name: "Bread flour",       pct: 100, isFlour: true, allergen: "Wheat" },
+      { name: "Water",             pct: 75 },
+      { name: "Sourdough starter", pct: 20,  allergen: "Wheat" },
+      { name: "Sea salt",          pct: 2 },
+    ],
+    schedule: [                             // minutes BEFORE out-of-oven
+      { label: "Feed levain",       offsetMin: 720 },
+      { label: "Mix &amp; start bulk", offsetMin: 600 },
+      { label: "Shape",             offsetMin: 240 },
+      { label: "Out of the oven",   offsetMin: 0, bake: true },
+    ],
+  }],
+  orders: [{ date: "2026-06-20", items: [{ product: "Country Sourdough", qty: 24 }] }],
+  date: "2026-06-20",
+  bakeTime: "08:00",
+});
+
+plan.totals;    // { units: 24, doughG: 21600, flourG: 10964.5… }
+plan.shopping;  // [{ name: "Bread flour", grams: … }, { name: "Water", … }, …]
+plan.schedule;  // time-reversed, merged steps with wall-clock times</code></pre>
+
+  <h2>Worked example (CLI)</h2>
+  <p>The repo ships an <code>examples/bakery.json</code> (two products — Country Sourdough and Seeded Spelt — and a day of orders). Running the bundled CLI against it produces a complete, accurate bake plan:</p>
+  <pre><code>node bin/cli.js plan examples/bakery.json --date 2026-06-20 --time 08:00</code></pre>
+  <div class="out">🥖  DoughPlan — bake day 2026-06-20
+    32 units · 28.00 kg dough · 13.98 kg flour · out of oven 08:00
+
+⏱  SCHEDULE (planned backward from out-of-oven)
+   Fri 03:00 PM   Feed levain          Country Sourdough ×24, Seeded Spelt ×8
+   Fri 09:00 PM   Autolyse             Country Sourdough ×24, Seeded Spelt ×8
+   Fri 10:00 PM   Add levain, bulk     Country Sourdough ×24
+   Sat 04:00 AM   Into the fridge      Country Sourdough ×24
+   Sat 07:00 AM   Preheat Dutch oven   Country Sourdough ×24, Seeded Spelt ×8
+🔥 Sat 08:00 AM   Out of the oven      Country Sourdough ×24, Seeded Spelt ×8
+
+🛒  SHOPPING LIST (aggregated across all products)
+     Bread flour        10.77 kg
+     Spelt flour         2.11 kg
+     Whole wheat flour   1.10 kg
+     Water              10.58 kg
+     Sourdough starter   2.80 kg
+     Mixed seeds          362 g
+     Sea salt             280 g</div>
+
+  <h2>API</h2>
+  <div class="api">
+    <h3>buildPlan({ products, orders, date, bakeTime })</h3>
+    <p>The one-call entry point. Aggregates orders for <code>date</code>, scales every product, merges a time-reversed schedule anchored to <code>bakeTime</code>, and returns <code>{ date, outOfOven, productLines, formulas, shopping, schedule, totals }</code>.</p>
+  </div>
+  <div class="grid">
+    <div class="api">
+      <h3>scaleProduct(product, units)</h3>
+      <p>Scales one product to <code>units</code> finished loaves and returns grams per ingredient. Mass-conserving: flour weight = doughTotal × 100 / totalPct.</p>
+    </div>
+    <div class="api">
+      <h3>hydration(ingredients)</h3>
+      <p>Water (and other liquids) as a percentage of flour weight — the number bakers quote, computed from the formula.</p>
+    </div>
+    <div class="api">
+      <h3>totalPct(ingredients)</h3>
+      <p>Sum of every ingredient percentage (e.g. 197% for a 75%-hydration loaf) — the scaling denominator.</p>
+    </div>
+    <div class="api">
+      <h3>flourPct(ingredients)</h3>
+      <p>Sum of the flour percentages (the 100% basis — can be split across several flours).</p>
+    </div>
+    <div class="api">
+      <h3>allergensOf(product)</h3>
+      <p>De-duplicated allergen list declared across a product's ingredients (handy for cottage-food labels).</p>
+    </div>
+    <div class="api">
+      <h3>buildSchedule(productLines, outOfOven)</h3>
+      <p>Merges every product's steps into one time-ordered schedule; tasks in the same 5-minute bucket with the same label collapse to a single line.</p>
+    </div>
+  </div>
+
+  <div class="hosted">
+    <h2>Don't want to write JSON?</h2>
+    <p>This library is the production-math core behind <a href="https://doughplan.com"><strong>DoughPlan</strong></a> — the back-of-house planning app for home &amp; micro bakeries (20–150 loaves/week). The full visual planner adds order entry, cottage-food labels, per-order packing lists, multi-bake-day planning and cloud sync, all in the browser — no install.</p>
+    <p><a class="btn btn-primary" href="https://doughplan.com">Open the free planner at doughplan.com →</a></p>
+    <p style="margin-top:14px;font-size:14px;color:var(--muted)">Free tools that pair with this library: the <a href="https://doughplan.com/tools/bakers-percentage-calculator">baker's-percentage calculator</a>, the <a href="https://doughplan.com/tools/sourdough-starter-calculator">sourdough starter calculator</a>, and the <a href="https://doughplan.com/tools/dough-temperature-calculator">dough temperature (DDT) calculator</a>.</p>
+  </div>
+
+  <h2>License</h2>
+  <p><a href="https://github.com/SaschaHeyer/doughplan/blob/main/LICENSE">MIT</a> — read it, trust it, build on it. Issues and PRs welcome on <a href="https://github.com/SaschaHeyer/doughplan">GitHub</a>.</p>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>doughplan</strong> · open-source bake-day planning engine · the engine behind <a href="https://doughplan.com">doughplan.com</a> · <a href="https://github.com/SaschaHeyer/doughplan">source on GitHub</a></p>
+  </div>
+</footer>
+</body>
+</html>
