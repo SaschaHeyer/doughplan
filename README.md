@@ -10,7 +10,7 @@ This is the production-math core behind [**DoughPlan**](https://doughplan.com) �
 back-of-house planning app for home & micro bakeries (20–150 loaves/week). The
 engine is open source so you can read it, trust it, and build on it. If you'd
 rather not write JSON, the full visual planner (labels, packing lists,
-multi-bake-day, cloud sync) lives at **[doughplan.com](https://doughplan.com)**.
+multi-bake-day, printable production sheets & shareable plan links) lives at **[doughplan.com](https://doughplan.com)**.
 
 📖 **Docs & live API reference:** **[saschaheyer.github.io/doughplan](https://saschaheyer.github.io/doughplan/)**
 
@@ -160,7 +160,7 @@ shapes the hosted product too.
 
 `doughplan` is the engine. **[DoughPlan](https://doughplan.com)** is the full
 product built on top of it — a visual planner with order entry, printable
-cottage-food labels, packing lists, multi-bake-day planning, and cloud sync,
+cottage-food labels, packing lists, multi-bake-day planning, printable production sheets, and shareable plan links,
 priced for micro bakeries (not the $200–350/mo enterprise tools). Free tools
 you can use right now, no signup:
 
